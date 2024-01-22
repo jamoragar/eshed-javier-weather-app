@@ -5,6 +5,10 @@ function Form({ onAddActivity }) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+
+        data['isForGoodWeather'] = data.hasOwnProperty('isForGoodWeather');
+
+        console.log(data)
         onAddActivity(data);
         event.target.reset();
     }
