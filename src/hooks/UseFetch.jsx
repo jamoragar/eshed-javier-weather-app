@@ -11,7 +11,8 @@ function useFetch(url){
                 try{
                     setLoading(true);
                     const response = await fetch(url);
-                    setData(response.data);
+                    const responseJson = await response.json();
+                    setData(responseJson);
                 }catch(err){
                     setError(err)
                 }finally{
