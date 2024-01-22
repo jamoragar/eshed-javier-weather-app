@@ -20,7 +20,7 @@ function Form({ onAddActivity }) {
 
       <div>
         <label htmlFor="checkbox">Good-weather activity:</label>
-        <input type="checkbox" id="checkbox" name="goodWeather" />
+        <input type="checkbox" id="checkbox" name="isForGoodWeather" />
       </div>
 
       <button type="submit">Submit</button>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useFetch from "./hooks/UseFetch";
 //Components
 import Form from "./components/Form/Form";
@@ -5,10 +6,12 @@ import Form from "./components/Form/Form";
 function App() {
   const API_URL = "https://example-apis.vercel.app/api/weather";
 
+  const [activities, setActivities] = useState([]);
+
   const { data, loading } = useFetch(API_URL);
 
-  function submitForm(formData) {
-    console.log(formData);
+  function handleAddActivity(formData) {
+    setActivities([formData, ...activities]);
   }
 
   return (
@@ -16,7 +19,14 @@ function App() {
       {loading && <div>Loading...</div>}
       {data && (
         <div>
-          <Form onAddActivity={submitForm} />
+          <Form onAddActivity={handleAddActivity} />
+          {
+            activities.map((activity, i) => (
+              <div key={i}>
+                <h3>{activity.activityName}</h3>
+                <h4>{activity.isForGoodWeather}</h4>
+              </div>
+            ))}
         </div>
       )}
     </>
