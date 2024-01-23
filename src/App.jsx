@@ -8,44 +8,47 @@ import "./App.css";
 
 function App() {
   const API_URL = "https://example-apis.vercel.app/api/weather/";
+  const { data, error } = useFetch(API_URL, 5000);
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
-  const { data, error } = useFetch(API_URL, 5000);
 
   function handleAddActivity(formData) {
     setActivities([formData, ...activities]);
   }
 
-  function handleDeleteActivity(activityName, index) {
-    const newActivitiesList = activities.filter((activity, i) => {
-      return ((i !== index));
-    });
-    setActivities(newActivitiesList)
+  function handleDeleteActivity(index) {
+    if (confirm("hi")) {
+      const newActivitiesList = activities.filter((activity, i) => {
+        return i !== index;
+      });
+      setActivities(newActivitiesList);
+    }
   }
 
-
-  
-  if(error){
-    return (
-      <h1>Error!!!</h1>
-    )
+  if (error) {
+    return <h1>Error!!!</h1>;
   }
 
   return (
     <>
       {data && (
-        <main className={`main-container ${data.isGoodWeather ? 'good' : 'bad'}-weather-app`}>
+        <main
+          className={`main-container ${
+            data.isGoodWeather ? "good" : "bad"
+          }-weather-app`}
+        >
           <List
             activities={activities}
             weatherData={data}
             onDeleteActivity={handleDeleteActivity}
           />
-          <Form onAddActivity={handleAddActivity} isGoodWeather={data.isGoodWeather}/>
+          <Form
+            onAddActivity={handleAddActivity}
+            isGoodWeather={data.isGoodWeather}
+          />
         </main>
-      )
-        
-    }
+      )}
     </>
   );
 }

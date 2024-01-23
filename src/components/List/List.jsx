@@ -14,12 +14,12 @@ function List({ activities, weatherData, onDeleteActivity }) {
           isGoodWeather ? "good-weather " : "bad-weather"
         }`}
       >
-        {filteredActivities.map((activity, i) => (
-          <li key={i}>
+        {filteredActivities.map((activity, index) => (
+          <li key={index}>
             <h2 className="item-text">{activity.activityName}</h2>
             <button
               className="button__delete"
-              onClick={() => onDeleteActivity(activity.activityName, i)}
+              onClick={() => onDeleteActivity(index)}
             >
               <TrashIcon fill="black" />
             </button>
