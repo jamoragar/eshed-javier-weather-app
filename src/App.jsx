@@ -7,7 +7,7 @@ import List from "./components/List/List";
 import "./App.css";
 
 function App() {
-  const API_URL = "https://example-apis.vercel.app/api/weather/sahara";
+  const API_URL = "https://example-apis.vercel.app/api/weather/";
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
