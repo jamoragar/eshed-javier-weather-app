@@ -2,18 +2,19 @@
 
 function List({activities, isGoodWeather}){
     const filteredActivities = activities.filter(activity => activity.isForGoodWeather == isGoodWeather)
-    console.log(filteredActivities)
     return (
-        <>
-        {isGoodWeather ? <p>Good weather activities</p> : <p>Bad weather activities</p>}
-        <ul>
+        <section >
+        {isGoodWeather ? <h2>Good weather activities</h2> : <h2>Bad weather activities</h2>}
+        <ul className="container">
             {filteredActivities.map((activity, i) => (
-                <div key={i}>
-                    <li>{activity.activityName}</li>
+                <div key={i} className="list">
+                    <li>
+                        <span  className="item-text">{activity.activityName}</span>
+                        <button className="delete-button" onClick={() => console.log(this)}>X</button></li>
                 </div>
             ))}
         </ul>
-        </>
+        </section>
     );
 }
 
