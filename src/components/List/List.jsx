@@ -1,21 +1,32 @@
+import HeaderList from "../ListHeader/ListHeader";
+import TrashIcon from '../Icons/TrashIcon';
+function List({ activities, weatherData, onDeleteActivity}) {
+  const { isGoodWeather } = weatherData;
+  const filteredActivities = activities.filter(
+    (activity) => activity.isForGoodWeather == isGoodWeather
+  );
 
-
-function List({activities, isGoodWeather}){
-    const filteredActivities = activities.filter(activity => activity.isForGoodWeather == isGoodWeather)
-    return (
-        <section >
-        {isGoodWeather ? <h2>Good weather activities</h2> : <h2>Bad weather activities</h2>}
-        <ul className="container">
-            {filteredActivities.map((activity, i) => (
-                <div key={i} className="list">
-                    <li>
-                        <span  className="item-text">{activity.activityName}</span>
-                        <button className="delete-button" onClick={() => console.log(this)}>X</button></li>
-                </div>
-            ))}
-        </ul>
-        </section>
-    );
+  return (
+    <section className="container__list">
+      <HeaderList {...weatherData} />
+      <ol className={`circle-list circle-list__${isGoodWeather ? 'good-weather ' : 'bad-weather'}`}>
+        {filteredActivities.map((activity, i) => (
+          <div key={i} >
+            <li>
+              <h2 className="item-text">
+                {activity.activityName}
+                </h2>
+              <button className="button__delete"
+                onClick={() => onDeleteActivity(activity.activityName, i)}
+              >
+                <TrashIcon fill='black'/>
+              </button>
+            </li>
+          </div>
+        ))}
+      </ol>
+    </section>
+  );
 }
 
 export default List;

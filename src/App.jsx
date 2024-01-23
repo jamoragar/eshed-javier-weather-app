@@ -1,40 +1,52 @@
-import useLocalStorageState from 'use-local-storage-state'
+import useLocalStorageState from "use-local-storage-state";
 import useFetch from "./hooks/UseFetch";
-import { useEffect, useState } from 'react';
 //Components
 import Form from "./components/Form/Form";
-import List from './components/List/List';
+import List from "./components/List/List";
 // Styles
-import './App.css';
+import "./App.css";
 
 function App() {
-  const API_URL = "https://example-apis.vercel.app/api/weather";
-  const [isGoodWeather, setIsGoodWeather] = useState(false);
-  const [activities, setActivities] = useLocalStorageState("activities", {defaultValue: []});
-  const { data, loading } = useFetch(API_URL);
-
-  useEffect(() => {
-    if(data){
-      setIsGoodWeather(data?.isGoodWeather);
-    }
-  }, [data])
-  
+  const API_URL = "https://example-apis.vercel.app/api/weather/sahara";
+  const [activities, setActivities] = useLocalStorageState("activities", {
+    defaultValue: [],
+  });
+  const { data, loading, error } = useFetch(API_URL);
 
   function handleAddActivity(formData) {
-    console.log(isGoodWeather)
     setActivities([formData, ...activities]);
+  }
+
+  function handleDeleteActivity(activityName, index) {
+    const newActivitiesList = activities.filter((activity, i) => {
+      return ((i !== index));
+    });
+    setActivities(newActivitiesList)
+  }
+
+
+  
+  if(error){
+    return (
+      <h1>Error!!!</h1>
+    )
   }
 
   return (
     <>
-      {loading && <div>Loading...</div>}
+      {(loading ) && <div>Loading...</div>}
       {data && (
-        <main className='main-container'>
-          <Form onAddActivity={handleAddActivity} />
-          <List activities={activities} isGoodWeather={isGoodWeather}/>
-
+        <main className={`main-container ${data.isGoodWeather ? 'good' : 'bad'}-weather-app`}>
+          <Form onAddActivity={handleAddActivity} isGoodWeather={data.isGoodWeather}/>
+          <List
+            activities={activities}
+            weatherData={data}
+            onDeleteActivity={handleDeleteActivity}
+          />
         </main>
-      )}
+      )
+        
+    }
     </>
   );
 }

@@ -1,4 +1,4 @@
-function Form({ onAddActivity }) {
+function Form({ onAddActivity, isGoodWeather }) {
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -7,7 +7,11 @@ function Form({ onAddActivity }) {
 
         data['isForGoodWeather'] = data.hasOwnProperty('isForGoodWeather');
 
-        onAddActivity(data);
+        if(data.activityName){
+          onAddActivity(data);
+        }else{
+          alert("You need to fill at least the name of the activity.");
+        }
         event.target.reset();
     }
 
@@ -17,15 +21,15 @@ function Form({ onAddActivity }) {
 
       <div>
         <label htmlFor="inputText">Name:</label>
-        <input className="input__activity" type="text" id="inputText" name="activityName"/>
+        <input className="input__activity" type="text" placeholder="Activity description" id="inputText" name="activityName" autoComplete="off"/>
       </div>
-
+      <br />
       <div>
         <label htmlFor="checkbox">Good-weather activity:</label>
-        <input type="checkbox" id="checkbox" name="isForGoodWeather" />
+        <input className="checkbox" type="checkbox" id="checkbox" name="isForGoodWeather" />
       </div>
 
-      <button className="submitButton" type="submit">Submit</button>
+      <button className={`submitButton submitButton__${isGoodWeather ? "good" : "bad"}`} type="submit">Submit</button>
     </form>
   );
 }
