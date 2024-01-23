@@ -1,10 +1,12 @@
-
 function Form({ onAddActivity }) {
 
     function handleSubmit(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData);
+
+        data['isForGoodWeather'] = data.hasOwnProperty('isForGoodWeather');
+
         onAddActivity(data);
         event.target.reset();
     }
@@ -15,7 +17,7 @@ function Form({ onAddActivity }) {
 
       <div>
         <label htmlFor="inputText">Name:</label>
-        <input type="text" id="inputText" name="activityName"/>
+        <input className="input__activity" type="text" id="inputText" name="activityName"/>
       </div>
 
       <div>
@@ -23,7 +25,7 @@ function Form({ onAddActivity }) {
         <input type="checkbox" id="checkbox" name="isForGoodWeather" />
       </div>
 
-      <button type="submit">Submit</button>
+      <button className="submitButton" type="submit">Submit</button>
     </form>
   );
 }
