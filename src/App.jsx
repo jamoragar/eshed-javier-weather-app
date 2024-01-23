@@ -11,7 +11,7 @@ function App() {
   const [activities, setActivities] = useLocalStorageState("activities", {
     defaultValue: [],
   });
-  const { data, loading, error } = useFetch(API_URL);
+  const { data, error } = useFetch(API_URL, 5000);
 
   function handleAddActivity(formData) {
     setActivities([formData, ...activities]);
@@ -34,15 +34,14 @@ function App() {
 
   return (
     <>
-      {(loading ) && <div>Loading...</div>}
       {data && (
         <main className={`main-container ${data.isGoodWeather ? 'good' : 'bad'}-weather-app`}>
-          <Form onAddActivity={handleAddActivity} isGoodWeather={data.isGoodWeather}/>
           <List
             activities={activities}
             weatherData={data}
             onDeleteActivity={handleDeleteActivity}
           />
+          <Form onAddActivity={handleAddActivity} isGoodWeather={data.isGoodWeather}/>
         </main>
       )
         

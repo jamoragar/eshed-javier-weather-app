@@ -25,10 +25,6 @@ ol {
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
-ol ol {
-  margin: 0 0 0 2em; /* Add some left margin for inner lists */
-}
-
 form {
   width: 400px;
   border-radius: 10px;
@@ -52,4 +48,8 @@ li {
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  border-bottom: 1px dashed #ccc;
+}
+li:last-child {
+  border-bottom: none;
 }
