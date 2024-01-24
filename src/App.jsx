@@ -3,6 +3,7 @@ import useFetch from "./hooks/UseFetch";
 //Components
 import Form from "./components/Form/Form";
 import List from "./components/List/List";
+import GoTopButton from "./components/GoTopButton/GoTopButton";
 // Styles
 import "./App.css";
 
@@ -47,6 +48,7 @@ function App() {
             onAddActivity={handleAddActivity}
             isGoodWeather={data.isGoodWeather}
           />
+          <GoTopButton />
         </main>
       )}
     </>
