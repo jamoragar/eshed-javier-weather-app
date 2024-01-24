@@ -19,7 +19,7 @@ function App() {
   }
 
   function handleDeleteActivity(index) {
-    if (confirm("hi")) {
+    if (confirm("Do you wanna delete this activity?")) {
       const newActivitiesList = activities.filter((activity, i) => {
         return i !== index;
       });
